@@ -12,7 +12,6 @@ import 'package:boozin_fitness/src/widgets/error.dart' as error;
 class Home extends GetView<HomeController> {
   const Home({Key? key}) : super(key: key);
 
-  /// route: '/home'
   static const String route = '/home';
 
   @override
@@ -41,7 +40,7 @@ class Home extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-               "Fitness",
+                AppText.hi,
                 style: TextStyle(
                   fontSize: 32,
                   fontFamily: AppFont.nunito,
@@ -75,87 +74,7 @@ class Home extends GetView<HomeController> {
                   goal: '15,000',
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 15.0,
-                ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  width: MediaQuery.of(context).size.width * 0.55,
-                  child: Card(
-                    color: const Color(0xffff6968),
-                    shape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                '  Steps Count',
-                                style: TextStyle(color: Colors.white, fontSize: 18),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(30),
-                                        bottomLeft: Radius.circular(30),
-                                        bottomRight: Radius.circular(30)),
-                                    color: Color.fromRGBO(255, 255, 255, 0.38)),
-                                child: IconButton(
-                                  onPressed: () {
-                                   // fetchStepData();
-                                    controller.fetchHealthData();
-                                    //controller.fetchStepData();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            "Refresh Data"),
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.refresh,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Container(
-                              alignment: Alignment.topLeft,
-                              padding: const EdgeInsets.only(left: 10, bottom: 20),
-                              child: Text(
-                                //'${controller.nofSteps.obs} steps ',
-                                '${steps} steps ',
-                                style:
-                                const TextStyle(fontSize: 27, color: Colors.white),
-                              )),
-                          Container(
-                              alignment: Alignment.bottomRight,
-                              padding: EdgeInsets.only(right: 10),
-                              child: Column(
-                                children: const [
-                                  Text(
-                                    'Healthy',
-                                    style: TextStyle(fontSize: 18, color: Colors.white),
-                                  ),
-                                  Text(
-                                    '50-120',
-                                    style: TextStyle(fontSize: 18, color: Colors.white),
-                                  ),
-                                ],
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+
               // ElevatedButton(
               //     child: const Text("Go To HomeScreen"),
               //     onPressed: () {

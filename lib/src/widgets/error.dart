@@ -26,9 +26,7 @@ class Error extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {
-              controller.fetchHealthData();
-            },
+            onPressed: () => controller.fetchHealthData(),
             child: const Text(AppText.retry),
           ),
           TextButton(

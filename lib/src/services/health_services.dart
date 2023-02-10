@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:health/health.dart';
-
 enum AppState {
   DATA_NOT_FETCHED,
   FETCHING_DATA,
@@ -15,11 +14,10 @@ enum AppState {
 class HelthService {
   static HealthFactory health = HealthFactory();
   /// Fetch steps from the health plugin and show them in the app.
-  /*Future fetchStepData() async {
+  Future fetchStepData() async {
     RxInt steps = 0.obs;
     RxInt nofSteps = 10.obs;
     AppState state = AppState.DATA_NOT_FETCHED;
-
     // get steps for today (i.e., since midnight)
     final now = DateTime.now();
     final midnight = DateTime(now.year, now.month, now.day);
@@ -45,45 +43,42 @@ class HelthService {
       state = AppState.DATA_NOT_FETCHED;
     //);
     }
-  }*/
+  }
 
 
   static Future<List<HealthDataPoint>> fetchHealthData() async {
+    /// Give a HealthDataType with the given identifier
     final types = [
       HealthDataType.STEPS,
       HealthDataType.ACTIVE_ENERGY_BURNED,
     ];
-    AppState state = AppState.DATA_NOT_FETCHED;
-    int nofSteps = 10;
 
+    /// Give a permissions for the given HealthDataTypes
     final permissions = [
       HealthDataAccess.READ,
       HealthDataAccess.READ,
     ];
 
+    /// current time
     final now = DateTime.now();
+
+    /// Give a yesterday's time
     final yesterday = now.subtract(const Duration(days: 1));
 
+    /// to store HealthDataPoint
     List<HealthDataPoint> healthData = [];
 
+    /// request google Authorization when the app is opened for the first time
     bool requested = await health.requestAuthorization(types, permissions: permissions);
 
-
+    ///check if the request is successful
     if (requested) {
-      // try {
-      //   steps = await health.getTotalStepsInInterval(yesterday, now);
-      // } catch (error) {
-      //   print("Caught exception in getTotalStepsInInterval: $error");
-      // }
-      // print('Total number of steps: $steps');
-      // nofSteps = (steps == null) ? 0 : steps;
-      // state = (steps == null) ? AppState.NO_DATA : AppState.STEPS_READY;
-
+      /// fetch the data from the health store
       healthData = await health.getHealthDataFromTypes(yesterday, now, types);
+
     } else {
+      /// if the request is not successful
       throw AuthenticationRequired();
-      // print("Authorization not granted - error in authorization");
-      //  state = AppState.DATA_NOT_FETCHED;
     }
     return healthData;
   }

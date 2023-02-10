@@ -65,13 +65,11 @@ class HelthService {
     /// Give a yesterday's time
     final yesterday = now.subtract(const Duration(days: 1));
 
-    /// to store HealthDataPoint
     List<HealthDataPoint> healthData = [];
 
     /// request google Authorization when the app is opened for the first time
     bool requested = await health.requestAuthorization(types, permissions: permissions);
 
-    ///check if the request is successful
     if (requested) {
       /// fetch the data from the health store
       healthData = await health.getHealthDataFromTypes(yesterday, now, types);

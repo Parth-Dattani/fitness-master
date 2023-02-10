@@ -6,6 +6,11 @@ class HomeController extends GetxController {
   var healthPoint = <HealthDataPoint>[].obs;
   var error = "".obs;
   var isLoading = false.obs;
+
+  HealthFactory health = HealthFactory();
+  int nofSteps = 0;
+  AppState state = AppState.DATA_NOT_FETCHED;
+
   @override
   void onInit() {
     super.onInit();
@@ -23,5 +28,36 @@ class HomeController extends GetxController {
       error.value = e.toString();
     }
     update();
+  }
+
+  /// Fetch steps from the health plugin and show them in the app.
+  Future fetchStepData() async {
+    int? steps;
+
+    // get steps for today (i.e., since midnight)
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+
+    bool requested = await health.requestAuthorization([HealthDataType.STEPS]);
+
+    if (requested) {
+      try {
+        steps = await health.getTotalStepsInInterval(midnight, now);
+      } catch (error) {
+        print("Caught exception in getTotalStepsInInterval: $error");
+      }
+
+      print('Total number of steps: $steps');
+
+      //setState(() {
+        nofSteps = (steps == null) ? 0 : steps;
+        state = (steps == null) ? AppState.NO_DATA : AppState.STEPS_READY;
+     // });
+    } else {
+      print("Authorization not granted - error in authorization");
+      //setState(() =>
+      state = AppState.DATA_NOT_FETCHED;
+      //);
+    }
   }
 }

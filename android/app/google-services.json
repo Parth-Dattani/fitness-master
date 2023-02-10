@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "229491947586",
+    "project_id": "fitness-a58b6",
+    "storage_bucket": "fitness-a58b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229491947586:android:e5e1219933a213dbc755db",
+        "android_client_info": {
+          "package_name": "com.example.boozin_fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229491947586-m2lbkbnbv5t1372age633p4mprt8bu3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuZ74xKkKXexr8gLP_NNC3vEzvx7SrmEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229491947586-hntdtjbtfq4t1jh9raisjkpu78sig791.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

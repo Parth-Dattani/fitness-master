@@ -1,20 +1,14 @@
 import 'package:get/get.dart';
 import 'package:health/health.dart';
+
 enum AppState {
-  DATA_NOT_FETCHED,
-  FETCHING_DATA,
-  DATA_READY,
-  NO_DATA,
-  AUTH_NOT_GRANTED,
-  DATA_ADDED,
-  DATA_NOT_ADDED,
-  STEPS_READY,
+  DATA_NOT_FETCHED, FETCHING_DATA, DATA_READY, NO_DATA, AUTH_NOT_GRANTED, DATA_ADDED, DATA_NOT_ADDED, STEPS_READY,
 }
 
 class HelthService {
   static HealthFactory health = HealthFactory();
-  /// Fetch steps from the health plugin and show them in the app.
-  Future fetchStepData() async {
+
+  /*Future fetchStepData() async {
     RxInt steps = 0.obs;
     RxInt nofSteps = 10.obs;
     AppState state = AppState.DATA_NOT_FETCHED;
@@ -43,7 +37,7 @@ class HelthService {
       state = AppState.DATA_NOT_FETCHED;
     //);
     }
-  }
+  }*/
 
 
   static Future<List<HealthDataPoint>> fetchHealthData() async {
@@ -59,30 +53,29 @@ class HelthService {
       HealthDataAccess.READ,
     ];
 
-    /// current time
     final now = DateTime.now();
-
-    /// Give a yesterday's time
     final yesterday = now.subtract(const Duration(days: 1));
 
-    /// to store HealthDataPoint
     List<HealthDataPoint> healthData = [];
 
     /// request google Authorization when the app is opened for the first time
     bool requested = await health.requestAuthorization(types, permissions: permissions);
-
-    ///check if the request is successful
+    RxInt steps = 0.obs;
     if (requested) {
-      /// fetch the data from the health store
+      try {
+        steps.value = (await health.getTotalStepsInInterval(yesterday, now))!;
+      } catch (error) {
+        print("Caught exception in getTotalStepsInInterval: $error");
+      }
+      print('Total number of steps: ${steps.value}');
+
       healthData = await health.getHealthDataFromTypes(yesterday, now, types);
 
     } else {
-      /// if the request is not successful
       throw AuthenticationRequired();
     }
     return healthData;
   }
-
 
 }
 

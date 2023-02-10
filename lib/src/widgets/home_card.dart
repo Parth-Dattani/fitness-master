@@ -25,86 +25,89 @@ class HomeCard extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 122,
-      width: MediaQuery.of(context).size.width,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(17, 16, 8, 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: '$heading: ',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: AppFont.montserrat,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+      child: SizedBox(
+        height: 122,
+        width: MediaQuery.of(context).size.width,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 8, 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '$heading: ',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: AppFont.montserrat,
+                              ),
                             ),
+                            TextSpan(
+                              text: title,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: AppFont.nunito,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Flexible(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          child: LinearProgressIndicator(
+                            /// change the value of the progress bar
+                            value: value / 100,
+                            valueColor: AlwaysStoppedAnimation(
+                              context.themeValue(light: AppColor.black, dark: AppColor.white),
+                            ),
+                            backgroundColor: AppColor.white,
+                            minHeight: 16,
                           ),
-                          TextSpan(
-                            text: title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: AppFont.nunito,
-                            ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '0',
+                            style: _titleStyle,
+                          ),
+                          Text(
+                            '${AppText.goal}: $goal',
+                            style: _titleStyle,
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    Flexible(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
-                        child: LinearProgressIndicator(
-                          /// change the value of the progress bar
-                          value: value / 100,
-                          valueColor: AlwaysStoppedAnimation(
-                            context.themeValue(light: AppColor.black, dark: AppColor.white),
-                          ),
-                          backgroundColor: AppColor.white,
-                          minHeight: 16,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '0',
-                          style: _titleStyle,
-                        ),
-                        Text(
-                          '${AppText.goal}: $goal',
-                          style: _titleStyle,
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 21),
-              SizedBox(
-                height: 52,
-                width: 52,
-                child: Image.asset(iconPath),
-              )
-            ],
+                const SizedBox(width: 21),
+                SizedBox(
+                  height: 52,
+                  width: 52,
+                  child: Image.asset(iconPath),
+                )
+              ],
+            ),
           ),
         ),
       ),

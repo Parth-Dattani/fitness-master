@@ -8,7 +8,7 @@ class HomeController extends GetxController {
   var error = "".obs;
   var isLoading = false.obs;
   RxInt nofSteps = 0.obs;
-  Rx<int> steps = 0.obs;
+  RxInt steps = 0.obs;
   Rx<int> calories = 0.obs;
   HealthFactory health = HealthFactory();
   AppState state = AppState.DATA_NOT_FETCHED;
@@ -18,6 +18,7 @@ class HomeController extends GetxController {
     super.onInit();
     checkPermissions();
     fetchHealthData();
+    fetchStepData();
   }
 
   void checkPermissions() async {

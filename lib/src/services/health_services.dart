@@ -59,10 +59,7 @@ class HelthService {
       HealthDataAccess.READ,
     ];
 
-    /// current time
     final now = DateTime.now();
-
-    /// Give a yesterday's time
     final yesterday = now.subtract(const Duration(days: 1));
 
     List<HealthDataPoint> healthData = [];

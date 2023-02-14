@@ -36,7 +36,7 @@ class Home extends GetView<HomeController> {
         padding: const EdgeInsets.fromLTRB(0, 50, 0, 10),
         child: Obx(() {
           final _healthPoint = controller.healthPoint;
-          num steps;
+          //num steps;
           num calories;
           if (controller.error.isNotEmpty) {
             return error.Error(controller: controller);
@@ -44,10 +44,12 @@ class Home extends GetView<HomeController> {
 
           /// get data from repository and assing to steps and calories
           if (_healthPoint.isNotEmpty) {
-            steps = _healthPoint.first.value;
+           // steps = _healthPoint.first.value;
+            controller.steps =  controller.steps;
             calories = _healthPoint.last.value;
           } else {
-            steps = 0;
+            //steps = 0;
+            controller.steps;
             calories = 0;
           }
           return Column(
@@ -82,8 +84,9 @@ class Home extends GetView<HomeController> {
                                   child: IconButton(
                                     onPressed: () {
                                       //fetchStepData();
-                                      //controller.fetchHealthData();
+                                      controller.fetchHealthData();
                                       controller.fetchStepData();
+                                      //controller.read();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           content: Text(
@@ -210,9 +213,9 @@ class Home extends GetView<HomeController> {
                 child: HomeCard(
                   iconPath: ImagePath(context).iconFootSteps,
                   heading: AppText.steps,
-                  //value: steps.toDouble(),
-                  value: controller.nofSteps.value.toDouble(),
-                  title: '$steps',
+                  value: controller.steps.toDouble(),
+                  //value: controller.nofSteps.value.toDouble(),
+                  title: '${controller.steps}',
                   goal: '15,000',
                 ),
               ),
@@ -230,6 +233,19 @@ class Home extends GetView<HomeController> {
                 ),
               ),
 
+
+              LoadingShimmer(
+                loading: controller.isLoading.value,
+                //if steps is not null show steps
+                child: HomeCard(
+                  iconPath: ImagePath(context).iconFootSteps,
+                  heading: AppText.steps,
+                  value: controller.steps.toDouble(),
+                  //value: controller.nofSteps.value.toDouble(),
+                  title: '${controller.steps}',
+                  goal: '15,000',
+                ),
+              ),
 
               // ElevatedButton(
               //     child: const Text("Go To HomeScreen"),
